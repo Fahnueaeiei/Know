@@ -1,98 +1,143 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-export default function HomeScreen() {
+export default function Home() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <ScrollView style={styles.container}>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* 🔵 Header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Welcome Back! 👋</Text>
+        <Text style={styles.subtitle}>
+          Your university companion for campus life
+        </Text>
+
+        <TextInput
+          placeholder="Search places, classrooms..."
+          style={styles.search}
+        />
+      </View>
+
+      {/* ⚡ Quick Access */}
+      <Text style={styles.sectionTitle}>Quick Access</Text>
+
+      <View style={styles.quickRow}>
+        <View style={styles.quickItem}>
+          <Text>📍</Text>
+          <Text>Find Place</Text>
+        </View>
+
+        <View style={styles.quickItem}>
+          <Text>🔍</Text>
+          <Text>Search Room</Text>
+        </View>
+
+        <View style={styles.quickItem}>
+          <Text>💰</Text>
+          <Text>Scholarships</Text>
+        </View>
+
+        <View style={styles.quickItem}>
+          <Text>📅</Text>
+          <Text>Calendar</Text>
+        </View>
+      </View>
+
+      {/* 🎓 Featured */}
+      <Text style={styles.sectionTitle}>Featured</Text>
+
+      <View style={styles.card}>
+        <Text style={styles.badge}>Featured</Text>
+        <Text style={styles.cardTitle}>
+          Academic Excellence Scholarship
+        </Text>
+        <Text style={styles.cardDesc}>
+          Merit-based scholarship for outstanding students
+        </Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.badge}>Featured</Text>
+        <Text style={styles.cardTitle}>
+          First-Year Student Grant
+        </Text>
+        <Text style={styles.cardDesc}>
+          Financial support for new students
+        </Text>
+      </View>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+  },
+
+  header: {
+    backgroundColor: '#4f46e5',
+    padding: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+
+  title: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+
+  subtitle: {
+    color: '#e0e7ff',
+    marginBottom: 15,
+  },
+
+  search: {
+    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 20,
+  },
+
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    margin: 16,
+  },
+
+  quickRow: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+
+  quickItem: {
+    backgroundColor: '#f1f5f9',
+    padding: 15,
+    borderRadius: 15,
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+
+  card: {
+    backgroundColor: '#e2e8f0',
+    margin: 16,
+    padding: 15,
+    borderRadius: 15,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  badge: {
+    backgroundColor: '#2563eb',
+    color: 'white',
+    padding: 5,
+    borderRadius: 10,
+    alignSelf: 'flex-start',
+    marginBottom: 5,
+  },
+
+  cardTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  cardDesc: {
+    color: '#475569',
   },
 });
