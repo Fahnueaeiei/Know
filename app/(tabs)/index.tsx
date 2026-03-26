@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, TextInput, View, TouchableOpacity} from "react-native";
+import { styles } from "../../styles/index";
 
 export default function HomeScreen() {
   const scholarships = [
@@ -20,6 +21,57 @@ export default function HomeScreen() {
       deadline: "2026-05-15",
       image:
         "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop",
+    },
+  ];
+
+  const places = [
+    {
+      id: "1",
+      title: "Main Library",
+      building: "Building A",
+      image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da",
+    },
+    {
+      id: "2",
+      title: "Student Center",
+      building: "Building B",
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7",
+    },
+    {
+      id: "3",
+      title: "Science Lab",
+      building: "Building C",
+      image: "https://images.unsplash.com/photo-1581091870627-3b5de6c0f8c7",
+    },
+    {
+      id: "4",
+      title: "Engineering Building",
+      building: "Building D",
+      image: "https://images.unsplash.com/photo-1562774053-701939374585",
+    },
+  ];
+
+  const news = [
+    {
+      id: "1",
+      title: "Welcome Freshmen Orientation 2026",
+      date: "2026-03-25",
+      type: "event",
+      image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94",
+    },
+    {
+      id: "2",
+      title: "New Scholarship Program Announced",
+      date: "2026-03-20",
+      type: "scholarship",
+      image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
+    },
+    {
+      id: "3",
+      title: "Campus Sustainability Initiative",
+      date: "2026-03-18",
+      type: "announcement",
+      image: "https://images.unsplash.com/photo-1492496913980-501348b61469",
     },
   ];
 
@@ -52,7 +104,6 @@ export default function HomeScreen() {
           <TouchableOpacity style={styles.favoriteButton}>
             <Ionicons name="heart-outline" size={18} color="#9ca3af" />
           </TouchableOpacity>
-
           <Text style={styles.cardTitle}>{item.title}</Text>
           <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
 
@@ -64,147 +115,62 @@ export default function HomeScreen() {
           <Image source={{ uri: item.image }} style={styles.cardImage} resizeMode="cover" />
         </TouchableOpacity>
       ))}
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Places</Text>
+
+        <TouchableOpacity style={styles.seeAllButton}>
+          <Text style={styles.seeAllText}>See All</Text>
+          <Ionicons name="chevron-forward" size={16} color="#d97745" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.placeGrid}>
+        {places.map((item) => (
+          <TouchableOpacity key={item.id} style={styles.placeCard}>
+            <Image source={{ uri: item.image }} style={styles.placeImage} />
+
+            <TouchableOpacity style={styles.placeFavorite}>
+              <Ionicons name="heart-outline" size={16} color="#9ca3af" />
+            </TouchableOpacity>
+
+            <View style={styles.placeContent}>
+              <Text style={styles.placeTitle}>{item.title}</Text>
+              <Text style={styles.placeSubtitle}>{item.building}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>News & Updates</Text>
+
+        <TouchableOpacity style={styles.seeAllButton}>
+          <Text style={styles.seeAllText}>See All</Text>
+          <Ionicons name="chevron-forward" size={16} color="#d97745" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ paddingHorizontal: 16 }}>
+        {news.map((item) => (
+          <TouchableOpacity key={item.id} style={styles.newsCard}>
+            <Image source={{ uri: item.image }} style={styles.newsImage} />
+
+            <View style={styles.newsContent}>
+              <Text style={styles.newsTitle}>{item.title}</Text>
+              <Text style={styles.newsDate}>{item.date}</Text>
+
+              <View style={styles.tag}>
+                <Text style={styles.tagText}>{item.type}</Text>
+              </View>
+            </View>
+
+            <TouchableOpacity style={styles.newsFavorite}>
+              <Ionicons name="heart-outline" size={18} color="#9ca3af" />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ))}
+      </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f3f4f6",
-  },
-
-  content: {
-    paddingBottom: 24,
-  },
-
-  hero: {
-    backgroundColor: "#bf5a37",
-    paddingTop: 28,
-    paddingHorizontal: 18,
-    paddingBottom: 26,
-    borderBottomLeftRadius: 22,
-    borderBottomRightRadius: 22,
-  },
-
-  heroTitle: {
-    color: "#ffffff",
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 18,
-  },
-
-  searchBox: {
-    backgroundColor: "#ffffff",
-    borderRadius: 16,
-    paddingHorizontal: 14,
-    height: 48,
-    flexDirection: "row",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
-  },
-
-  searchInput: {
-    flex: 1,
-    marginLeft: 8,
-    fontSize: 16,
-    color: "#111827",
-  },
-
-  sectionHeader: {
-    marginTop: 22,
-    marginBottom: 10,
-    paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#111827",
-  },
-
-  seeAllButton: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  seeAllText: {
-    color: "#d97745",
-    fontWeight: "600",
-    marginRight: 2,
-  },
-
-  card: {
-    marginHorizontal: 16,
-    marginBottom: 14,
-    backgroundColor: "#f4df8d",
-    borderRadius: 18,
-    padding: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
-  },
-
-  favoriteButton: {
-    position: "absolute",
-    top: 14,
-    right: 14,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 2,
-  },
-
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#111827",
-    paddingRight: 40,
-  },
-
-  cardSubtitle: {
-    marginTop: 6,
-    fontSize: 14,
-    color: "#475569",
-  },
-
-  metaRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 14,
-    marginBottom: 12,
-    gap: 12,
-    flexWrap: "wrap",
-  },
-
-  amount: {
-    fontSize: 16,
-    fontWeight: "800",
-    color: "#e6a92d",
-  },
-
-  deadline: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#6b7280",
-  },
-
-  cardImage: {
-    width: "100%",
-    height: 140,
-    borderRadius: 14,
-    backgroundColor: "#ead8a0",
-  },
-});
