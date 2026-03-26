@@ -1,50 +1,100 @@
-# Welcome to your Expo app 👋
+# Know KKU: Mobile Application for University Student Information
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 1. Introduction
 
-## Get started
+Know KKU is a mobile application developed to assist new students at Khon Kaen University in accessing essential information for university life. The system integrates multiple information sources into a single platform, improving accessibility, reducing confusion, and enhancing user experience.
 
-1. Install dependencies
+The application provides features such as campus place navigation, university news, task management (checklist), and user profile management.
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## 2. Objectives
 
-   ```bash
-   npx expo start
-   ```
+* To develop a mobile application for accessing university information
+* To centralize important data such as places, news, and tasks
+* To improve usability and accessibility for new students
+* To reduce time spent searching for information
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 3. Technologies Used
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Programming Languages
 
-## Get a fresh project
+* TypeScript
+* JavaScript
 
-When you're ready, run:
+### Frameworks & Tools
+
+* React Native
+* Expo
+* Expo Router
+* Node.js
+
+### Development Tools
+
+* Visual Studio Code
+* GitHub
+
+---
+
+## 4. System Features
+
+* **Home**: Welcome screen with search and highlighted information
+* **Place**: Browse and search campus locations
+* **Place Detail**: View building, floor, description, shuttle bus, and navigation
+* **News**: View university news and activities
+* **News Detail**: Read full content
+* **Checklist**: Manage personal tasks
+* **Profile**: View and edit user information
+
+
+---
+
+## 5. System Configuration and Setup
+
+### 5.1 Requirements
+
+* Node.js (v18+ recommended)
+* npm
+
+---
+
+### 5.2 Installation
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+### 5.3 Running the Application
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Clear cache (if error):
 
-## Join the community
+```bash
+npx expo start -c
+```
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 6. System Architecture
+
+* Frontend: React Native (Expo)
+* Data Source: Local mock data (TypeScript files)
+* External Service: Google Maps API
+
+---
+
+## 7. Limitations
+
+* Uses static data (no backend)
+* No authentication system
+* No real-time updates
+* Requires internet for navigation features
+
+---
