@@ -13,10 +13,13 @@ export type Place = {
   category: string;
   location: string;
   description: string;
-  image?: string;
-  lat?: number;
-  lng?: number;
-  shuttleBusRoutes?: string[];
+  building: string;
+  floor: string;
+  time : string;
+  image: string;
+  lat: number;
+  lng: number;
+  shuttleBusRoutes: string[];
 };
 
 export type Room = {

@@ -12,11 +12,9 @@ export const styles = StyleSheet.create({
 
   hero: {
     backgroundColor: "#bf5a37",
-    paddingTop: 28,
-    paddingHorizontal: 18,
+    paddingTop: 30,
+    paddingHorizontal: 24,
     paddingBottom: 26,
-    borderBottomLeftRadius: 22,
-    borderBottomRightRadius: 22,
   },
 
   heroTitle: {

@@ -1,216 +1,154 @@
+import { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { Ionicons, Feather } from "@expo/vector-icons";
+import { styles } from "../../styles/profile";
 
 export default function Profile() {
-  const router = useRouter();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const user = {
-    name: "Phattharawadee Songsrirod",
-    role: "Freshman • Class of 2029",
-    studentId: "123456789",
+  const [user, setUser] = useState({
+    name: "John Doe",
+    studentId: "2026001234",
+    email: "john.doe@university.edu",
+    phone: "+66 12 345 6789",
+  });
+
+  const favoritesCount = 0;
+
+  const handleSave = () => {
+    setIsEditing(false);
   };
 
-  const savedPlaces = [
-    {
-      id: "1",
-      name: "Science Complex Building",
-      category: "Academic",
-      location: "Faculty of Science",
-      description: "Main academic building for science classes and laboratories.",
-    },
-    {
-      id: "2",
-      name: "Main Library",
-      category: "Library",
-      location: "Khon Kaen University",
-      description: "Central library and learning resource center.",
-    },
-  ];
-
-  const bookmarkedItems = [
-    {
-      id: "1",
-      title: "Academic Excellence Scholarship",
-      category: "Scholarship",
-      description: "Scholarship application is now open for eligible students.",
-      date: "2026-03-25",
-      sourceLink: "https://kku.ac.th",
-    },
-    {
-      id: "2",
-      title: "Spring Festival 2026",
-      category: "Event",
-      description: "Join the annual spring festival and student activities.",
-      date: "2026-03-26",
-      sourceLink: "https://kku.ac.th",
-    },
-  ];
-
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.avatar} />
-        <View style={styles.headerText}>
-          <Text style={styles.name}>{user.name}</Text>
-          <Text style={styles.sub}>{user.role}</Text>
-          <Text style={styles.id}>ID: {user.studentId}</Text>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.hero}>
+        <View style={styles.heroRow}>
+          <View style={styles.avatar}>
+            <Ionicons name="person-outline" size={64} color="#FFFFFF" />
+          </View>
+
+          <View style={styles.heroText}>
+            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.studentId}>{user.studentId}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.card}>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>Profile Information</Text>
+
+          <TouchableOpacity
+            style={styles.editIconButton}
+            activeOpacity={0.85}
+            onPress={() => setIsEditing(true)}
+          >
+            <Feather name="edit-2" size={22} color="#D46A3E" />
+          </TouchableOpacity>
+        </View>
+
+        {isEditing ? (
+          <>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Name</Text>
+              <TextInput
+                value={user.name}
+                onChangeText={(text) =>
+                  setUser((prev) => ({ ...prev, name: text }))
+                }
+                style={styles.inputBox}
+                placeholder="Enter name"
+                placeholderTextColor="#9CA3AF"
+              />
+            </View>
+
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Email</Text>
+              <TextInput
+                value={user.email}
+                onChangeText={(text) =>
+                  setUser((prev) => ({ ...prev, email: text }))
+                }
+                style={styles.inputBox}
+                placeholder="Enter email"
+                placeholderTextColor="#9CA3AF"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputLabel}>Phone</Text>
+              <TextInput
+                value={user.phone}
+                onChangeText={(text) =>
+                  setUser((prev) => ({ ...prev, phone: text }))
+                }
+                style={styles.inputBox}
+                placeholder="Enter phone number"
+                placeholderTextColor="#9CA3AF"
+                keyboardType="phone-pad"
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.saveButton}
+              activeOpacity={0.9}
+              onPress={handleSave}
+            >
+              <Text style={styles.saveButtonText}>Save Changes</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <View style={styles.infoBlock}>
+              <Text style={styles.infoLabel}>Email</Text>
+              <Text style={styles.infoValue}>{user.email}</Text>
+            </View>
+
+            <View style={styles.infoBlock}>
+              <Text style={styles.infoLabel}>Phone</Text>
+              <Text style={styles.infoValue}>{user.phone}</Text>
+            </View>
+          </>
+        )}
+      </View>
+
+      <View style={styles.card}>
+        <View style={styles.favoriteHeader}>
+          <View style={styles.favoriteLeft}>
+            <Ionicons name="heart" size={28} color="#EB5757" />
+            <Text style={styles.favoriteTitle}>My Favorites</Text>
+          </View>
+
+          <Text style={styles.favoriteCount}>{favoritesCount} items</Text>
+        </View>
+
+        <View style={styles.favoriteEmptyWrap}>
+          <Text style={styles.favoriteEmptyText}>
+            No favorites yet. Start adding items!
+          </Text>
         </View>
       </View>
 
       <TouchableOpacity
-        style={styles.editButton}
-        onPress={() => router.push("/edit-profile")}
+        style={styles.logoutCard}
+        activeOpacity={0.9}
+        onPress={() => {}}
       >
-        <Text style={styles.editButtonText}>Edit Profile</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.sectionTitle}>Saved Places</Text>
-      {savedPlaces.map((place) => (
-        <TouchableOpacity
-          key={place.id}
-          style={styles.card}
-          onPress={() =>
-            router.push({
-              pathname: "/place-detail",
-              params: {
-                name: place.name,
-                category: place.category,
-                location: place.location,
-                description: place.description,
-              },
-            })
-          }
-        >
-          <Text style={styles.cardTitle}>{place.name}</Text>
-          <Text style={styles.subDark}>{place.category}</Text>
-        </TouchableOpacity>
-      ))}
-
-      <Text style={styles.sectionTitle}>Bookmarked</Text>
-      {bookmarkedItems.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={styles.card}
-          onPress={() =>
-            router.push({
-              pathname: "/news-detail",
-              params: {
-                title: item.title,
-                category: item.category,
-                description: item.description,
-                date: item.date,
-                sourceLink: item.sourceLink,
-              },
-            })
-          }
-        >
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.subDark}>{item.category}</Text>
-        </TouchableOpacity>
-      ))}
-
-      <Text style={styles.sectionTitle}>Settings & More</Text>
-
-      <TouchableOpacity style={styles.card}>
-        <Text style={styles.cardTitle}>Notifications</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.card}>
-        <Text style={styles.cardTitle}>App Settings</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.card}>
-        <Text style={styles.cardTitle}>Help & Support</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => router.replace("/login")}
-      >
-        <Text style={styles.signOut}>Sign Out</Text>
+        <Feather name="log-out" size={28} color="#EB5757" />
+        <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#ffffff",
-  },
-  header: {
-    backgroundColor: "#1e293b",
-    padding: 20,
-    borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  headerText: {
-    flex: 1,
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-    backgroundColor: "#8b5cf6",
-    borderRadius: 30,
-    marginRight: 15,
-  },
-  name: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  sub: {
-    color: "#cbd5e1",
-    marginTop: 2,
-  },
-  id: {
-    color: "#94a3b8",
-    fontSize: 12,
-    marginTop: 2,
-  },
-  editButton: {
-    backgroundColor: "#2563eb",
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  editButtonText: {
-    color: "white",
-    fontWeight: "600",
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  card: {
-    backgroundColor: "#f1f5f9",
-    padding: 15,
-    borderRadius: 12,
-    marginBottom: 10,
-  },
-  cardTitle: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#0f172a",
-  },
-  subDark: {
-    color: "#475569",
-    marginTop: 4,
-  },
-  signOut: {
-    color: "red",
-    fontWeight: "600",
-  },
-});
